@@ -4,11 +4,19 @@ pipeline:
     pull: true
     commands:
       - mvn clean install -Dmaven.test.skip=true
-      - sleep 60
-      
+      - sleep 10
+
   slack:
     image: plugins/slack
     channel: water-pipe
-    webhook: https://hooks.slack.com/services/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
+    secrets: [ slack_webhook ]
+    image_url: https://unsplash.it/256/256/?random
+    icon_url: https://unsplash.it/256/256/?random
+    template: >
+     {{#success build.status}}
+       build {{build.number}} succeeded. Good job.
+     {{else}}
+       build {{build.number}} failed. Fix me please.
+     {{/success}}
     when:
       status: [ success, failure ]
