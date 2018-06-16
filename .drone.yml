@@ -4,11 +4,11 @@ pipeline:
     pull: true
     commands:
       - mvn clean install -Dmaven.test.skip=true
-      - sleep 10
+      - sleep 60
       
   slack:
     image: plugins/slack
     channel: water-pipe
-    webhook: https://hooks.slack.com/services/...
+    webhook: https://hooks.slack.com/services/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
     when:
       status: [ success, failure ]
